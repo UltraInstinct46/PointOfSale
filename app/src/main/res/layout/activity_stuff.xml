@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".Activity.StuffActivity">
+
+    <EditText
+        android:id="@+id/nama_barang_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Barang"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/tanggal_masuk_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tanggal Masuk"
+        android:inputType="date"/>
+    <EditText
+        android:id="@+id/harga_barang_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Harga Barang"/>
+    <EditText
+        android:id="@+id/stock_barang_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Stock Barang"/>
+    <EditText
+        android:id="@+id/keterangan_edt"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="Keterangan"/>
+    <Button
+        android:id="@+id/add_stuff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"/>
+</LinearLayout>

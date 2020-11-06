@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".Activity.TransactionActivity">
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/qty_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Qty"/>
+    <EditText
+        android:id="@+id/totalcost_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Total Cost"/>
+    <Button
+        android:id="@+id/add_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"/>
+</LinearLayout>

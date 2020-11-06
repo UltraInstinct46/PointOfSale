@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Point Of Sale</string>
+    <string-array name="level">
+        <item>Admin</item>
+        <item>Kasir</item>
+        <item>Manager</item>
+    </string-array>
+</resources>
