@@ -56,10 +56,12 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 String passwordText = edtPassword.getText().toString().trim();
                 if(TextUtils.isEmpty(usernameText)){
                     edtUsername.setError("Username must filled");
+                    isEmpty=true;
                 }
                 if(TextUtils.isEmpty(passwordText)){
                     edtPassword.setError("Password must filled");
-                }else {
+                    isEmpty=true;
+                }if(isEmpty==false) {
                     try {
                         userHelper.saveUser(new User(usernameText, passwordText, levelText));
                     }catch(SQLiteConstraintException e){

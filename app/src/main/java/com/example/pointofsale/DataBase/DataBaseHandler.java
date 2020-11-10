@@ -27,7 +27,7 @@ public class DataBaseHandler extends SQLiteOpenHelper{
     private static final String KEY_MERK = "key_merk";
 
     //TABLE DISTRIBUTOR
-    private static final String TABLE_DISTRIBUTOR ="t_merk";
+    private static final String TABLE_DISTRIBUTOR ="t_distributor";
     private static final String KEY_NAMA_DISTRIBUTOR = "key_nama_distributor";
     private static final String KEY_ALAMAT ="key_alamat";
     private static final String KEY_NO_TELP ="key_no_telp";

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.pointofsale.Data.Merek;
 import com.example.pointofsale.DataBase.DataBaseHandler;
-import com.example.pointofsale.DataBase.MerkDataBaseHandler;
 import com.example.pointofsale.R;
 
 public class MerkActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,11 +30,13 @@ public class MerkActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        boolean isEmpty = false;
         String merkText = merkEdt.getText().toString().trim();
         if(TextUtils.isEmpty(merkText)){
             merkEdt.setError("This Field must filled");
+            isEmpty=true;
         }
-        else{
+        if(isEmpty==false){
             try {
                 merkHelper.saveMerek(new Merek(merkText));
             }catch (SQLiteConstraintException e){

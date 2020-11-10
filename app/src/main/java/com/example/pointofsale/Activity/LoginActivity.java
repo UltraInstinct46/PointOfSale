@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText usernameEdt;
     private EditText passwordEdt;
     private DataBaseHandler userHelper;
+
     private List<User> listUser = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +44,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String username = usernameEdt.getText().toString().trim();
         String password = passwordEdt.getText().toString().trim();
-        Boolean res = userHelper.checkuser(username,password);
+        boolean isEmpty = false;
+        boolean res = userHelper.checkuser(username, password);
         String levelText;
         Intent intent;
-
-        if(res==true){
-            User level = userHelper.findOneUser(username);
-            levelText = level.getLevel();
-            switch(levelText){
-                case "Admin":
-                    intent = new Intent(this,MerkActivity.class);
-                    startActivity(intent);
-                    break;
-                case "Kasir":
-                    intent = new Intent(this,TransactionActivity.class);
-                    startActivity(intent);
-                    break;
-                case "Manager":
-                    break;
-            }
+        if (TextUtils.isEmpty(username)) {
+            usernameEdt.setError("This field must filled");
+            isEmpty = true;
         }
-        else{
-            Toast.makeText(this, "Username or Password is incorrect ", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(password)) {
+            passwordEdt.setError("This field must filled");
+            isEmpty = true;
+        }
+        if (isEmpty == false) {
+            if (res == true) {
+                User level = userHelper.findOneUser(username);
+                levelText = level.getLevel();
+                switch (levelText) {
+                    case "Admin":
+                        intent = new Intent(this, HomeActivity.class);
+                        intent.putExtra(HomeActivity.EXTRA_LEVEL,"Admin");
+                        startActivity(intent);
+                        break;
+                    case "Kasir":
+                        intent = new Intent(this, HomeActivity.class);
+                        intent.putExtra(HomeActivity.EXTRA_LEVEL,"Kasir");
+                        startActivity(intent);
+                        break;
+                    case "Manager":
+                        intent = new Intent(this, HomeActivity.class);
+                        intent.putExtra(HomeActivity.EXTRA_LEVEL,"Manager");
+                        startActivity(intent);
+                        break;
+                }
+            } else {
+                Toast.makeText(this, "Username or Password is incorrect ", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

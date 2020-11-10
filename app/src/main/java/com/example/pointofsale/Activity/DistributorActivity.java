@@ -30,10 +30,10 @@ public class DistributorActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        boolean isEmpty = false;
         String namaDistributorText = namaDistributorEdt.getText().toString().trim();
         String alamatText = alamatEdt.getText().toString().trim();
         String noTelpText = noTelpEdt.getText().toString().trim();
-        Boolean isEmpty = false;
         if(TextUtils.isEmpty(namaDistributorText)){
             namaDistributorEdt.setError("This Field must filled");
             isEmpty = true;
@@ -46,7 +46,7 @@ public class DistributorActivity extends AppCompatActivity implements View.OnCli
             noTelpEdt.setError("This Field must filled");
             isEmpty = true;
         }
-        if(isEmpty = false){
+        if(isEmpty == false){
             distributorHelper.saveDistributor(new Distributor(namaDistributorText,alamatText,noTelpText));
         }
     }
