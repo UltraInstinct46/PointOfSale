@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDataBaseHandler extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "User";
     private static final String TABLE_USER="t_user";
     private static final String KEY_ID = "key_id";
@@ -28,7 +28,7 @@ public class UserDataBaseHandler extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db){
         String CREATE_TABLE_USER= "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_USERNAME + " TEXT,"
+                + KEY_USERNAME + " TEXT NOT NULL UNIQUE,"
                 + KEY_PASSWORD + " TEXT,"
                 + KEY_LEVEL + " TEXT" + ")";
         db.execSQL(CREATE_TABLE_USER);
@@ -37,6 +37,12 @@ public class UserDataBaseHandler extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         onCreate(db);
+//        String INSERT_TABLE_USER = "INSERT INTO " + TABLE_USER + "("
+//                +KEY_USERNAME + ","
+//                +KEY_PASSWORD + ","
+//                +KEY_LEVEL + ") "
+//                +"VALUES ('Admin','Kasir','Manager') , ('Admin','Kasir','Manager') , ('Admin','Kasir','Manager')";
+//        db.execSQL(INSERT_TABLE_USER);
     }
 
     public void save(User user){
@@ -48,10 +54,10 @@ public class UserDataBaseHandler extends SQLiteOpenHelper{
         db.insert(TABLE_USER, null, values);
         db.close();
     }
-    public User findOne(int id){
+    public User findOne(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USER,new String[]{KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_LEVEL},
-                KEY_ID+"=?", new String[]{String.valueOf(id)},null, null, null);
+                KEY_USERNAME+"=?", new String[]{String.valueOf(username)},null, null, null);
 
         if(cursor!=null){
             cursor.moveToFirst();
@@ -93,5 +99,21 @@ public class UserDataBaseHandler extends SQLiteOpenHelper{
         SQLiteDatabase db=this.getWritableDatabase();
         db.delete(TABLE_USER, KEY_ID+"=?", new String[]{String.valueOf(user.getId())});
         db.close();
+    }
+    public boolean checkuser(String username, String password) {
+        String[] columns = { KEY_ID} ;
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = KEY_USERNAME + "=?" + " and " + KEY_PASSWORD + "=?";
+        String[] selectionArgs = { username, password };
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+
+
+        if (count>0)
+            return true;
+        else
+            return false;
     }
 }
