@@ -2,9 +2,7 @@ package com.example.pointofsale.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.pointofsale.Data.User;
-import com.example.pointofsale.DataBase.UserDataBaseHandler;
+import com.example.pointofsale.DataBase.DataBaseHandler;
 import com.example.pointofsale.R;
 
 import java.util.List;
@@ -23,7 +21,7 @@ import java.util.List;
 public class UserActivity extends AppCompatActivity implements View.OnClickListener {
     String levelText;
     private EditText edtUsername,edtPassword;
-    private UserDataBaseHandler userHelper;
+    private DataBaseHandler userHelper;
     private List<User> listUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         edtPassword = findViewById(R.id.password_user_edt);
         Button add = findViewById(R.id.add_user);
         add.setOnClickListener(this);
-        userHelper = new UserDataBaseHandler(this);
-        listUser = userHelper.findAll();
+        userHelper = new DataBaseHandler(this);
+        listUser = userHelper.findAllUser();
         level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -63,7 +61,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                     edtPassword.setError("Password must filled");
                 }else {
                     try {
-                        userHelper.save(new User(usernameText, passwordText, levelText));
+                        userHelper.saveUser(new User(usernameText, passwordText, levelText));
                     }catch(SQLiteConstraintException e){
                             Toast.makeText(this, "Username has been taken", Toast.LENGTH_SHORT).show();
                         }
