@@ -48,6 +48,7 @@ public class DistributorActivity extends AppCompatActivity implements View.OnCli
         }
         if(isEmpty == false){
             distributorHelper.saveDistributor(new Distributor(namaDistributorText,alamatText,noTelpText));
+            onBackPressed();
         }
     }
 }

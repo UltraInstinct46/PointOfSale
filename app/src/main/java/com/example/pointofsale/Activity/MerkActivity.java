@@ -39,6 +39,7 @@ public class MerkActivity extends AppCompatActivity implements View.OnClickListe
         if(isEmpty==false){
             try {
                 merkHelper.saveMerek(new Merek(merkText));
+                onBackPressed();
             }catch (SQLiteConstraintException e){
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             }

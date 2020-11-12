@@ -120,7 +120,7 @@ public class TransactionActivity extends AppCompatActivity implements AdapterVie
                     int totalStock = stock - jumlahBeliInt;
                     barang.setStok_barang(totalStock);
                     transactionHelper.updateBarang(barang);
-
+                    onBackPressed();
                 }
                 break;
         }
@@ -157,6 +157,7 @@ public class TransactionActivity extends AppCompatActivity implements AdapterVie
         if(isEmpty == false) {
             int formula = price * jumlahBeliInt;
             totalHargaEdt.setText(String.valueOf(formula));
+
         }
     }
 }

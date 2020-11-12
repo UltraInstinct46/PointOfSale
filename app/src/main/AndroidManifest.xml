@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.LaporanActivity"></activity>
+        <activity android:name=".Activity.HomeBarangActivity"></activity>
+        <activity android:name=".Activity.LaporanActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.DistributorActivity" />
         <activity android:name=".Activity.UserActivity" />

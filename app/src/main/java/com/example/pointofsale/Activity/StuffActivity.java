@@ -2,6 +2,7 @@ package com.example.pointofsale.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -90,8 +91,6 @@ public class StuffActivity extends AppCompatActivity implements AdapterView.OnIt
                 boolean isEmpty = false;
                 String namaBarang = namaBarangEdt.getText().toString().trim();
                 String tanggalMasuk = tanggalMasukEdt.getText().toString().trim();
-                int hargaBarang = Integer.parseInt(hargaBarangEdt.getText().toString().trim());
-                int stockBarang = Integer.parseInt(stockBarangEdt.getText().toString().trim());
                 String keteranganBarang = keteranganEdt.getText().toString().trim();
                 String hargaBarangString = hargaBarangEdt.getText().toString().trim();
                 String stockBarangString = stockBarangEdt.getText().toString().trim();
@@ -116,7 +115,12 @@ public class StuffActivity extends AppCompatActivity implements AdapterView.OnIt
                     isEmpty = true;
                 }
                 if(isEmpty == false) {
+                    int hargaBarang = Integer.parseInt(hargaBarangEdt.getText().toString().trim());
+                    int stockBarang = Integer.parseInt(stockBarangEdt.getText().toString().trim());
                     barangHelper.saveBarang(new Barang(namaBarang,merekText,distributorText,tanggalMasuk,hargaBarang,stockBarang,keteranganBarang));
+                    Intent intent = new Intent(this,HomeBarangActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 break;
         }

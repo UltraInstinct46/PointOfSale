@@ -2,6 +2,7 @@ package com.example.pointofsale.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -62,11 +63,17 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                     edtPassword.setError("Password must filled");
                     isEmpty=true;
                 }if(isEmpty==false) {
-                    try {
-                        userHelper.saveUser(new User(usernameText, passwordText, levelText));
-                    }catch(SQLiteConstraintException e){
+                    User user;
+                    try{
+                        user = userHelper.findOneUser(usernameText);
+                        String checkUser = user.getUsername();
+                        if(checkUser!=null) {
                             Toast.makeText(this, "Username has been taken", Toast.LENGTH_SHORT).show();
                         }
+                    }catch (CursorIndexOutOfBoundsException e){
+                        userHelper.saveUser(new User(usernameText, passwordText, levelText));
+                        onBackPressed();
+                    }
                 }
     }
 }
