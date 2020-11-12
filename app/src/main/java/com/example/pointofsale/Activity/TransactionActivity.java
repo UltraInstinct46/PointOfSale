@@ -120,7 +120,9 @@ public class TransactionActivity extends AppCompatActivity implements AdapterVie
                     int totalStock = stock - jumlahBeliInt;
                     barang.setStok_barang(totalStock);
                     transactionHelper.updateBarang(barang);
-                    onBackPressed();
+                    Intent intent = new Intent(this,HomeTransactionActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 break;
         }

@@ -2,6 +2,7 @@ package com.example.pointofsale.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -37,12 +38,10 @@ public class MerkActivity extends AppCompatActivity implements View.OnClickListe
             isEmpty=true;
         }
         if(isEmpty==false){
-            try {
                 merkHelper.saveMerek(new Merek(merkText));
-                onBackPressed();
-            }catch (SQLiteConstraintException e){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(this,HomeMerekActivity.class);
+                startActivity(intent);
+                finish();
         }
     }
 }

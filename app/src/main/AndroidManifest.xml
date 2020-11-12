@@ -9,13 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.HomeBarangActivity"></activity>
+        <activity android:name=".Activity.HomeMerekActivity"></activity>
+        <activity android:name=".Activity.MerekViewActivity" />
+        <activity android:name=".Activity.HomeDistributorActivity" />
+        <activity android:name=".Activity.DistributorViewActivity" />
+        <activity android:name=".Activity.HomeTransactionActivity" />
+        <activity android:name=".Activity.TransactionViewActivity" />
+        <activity android:name=".Activity.HomeBarangActivity" />
         <activity android:name=".Activity.LaporanActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.DistributorActivity" />
         <activity android:name=".Activity.UserActivity" />
         <activity android:name=".Activity.StuffActivity" />
         <activity android:name=".Activity.MerkActivity" />
+        <activity android:name=".Activity.BarangViewActivity" />
         <activity android:name=".Activity.TransactionActivity" />
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>

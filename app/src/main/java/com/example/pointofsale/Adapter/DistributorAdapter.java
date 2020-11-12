@@ -10,39 +10,41 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pointofsale.Activity.BarangViewActivity;
+import com.example.pointofsale.Activity.DistributorViewActivity;
 import com.example.pointofsale.Data.Barang;
+import com.example.pointofsale.Data.Distributor;
 import com.example.pointofsale.R;
 
 import java.util.ArrayList;
 
-public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.CardViewViewHolder> {
-    private ArrayList<Barang> listBarang;
+public class DistributorAdapter extends RecyclerView.Adapter<DistributorAdapter.CardViewViewHolder> {
+    private ArrayList<Distributor> lisDistributor;
     private OnItemClickCallback onItemClickCallback;
 
     void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
-    public BarangAdapter(ArrayList<Barang> list){
-        this.listBarang = list;
+    public DistributorAdapter(ArrayList<Distributor> list){
+        this.lisDistributor = list;
     }
     @NonNull
     @Override
-    public BarangAdapter.CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_barang_item,parent,false);
+    public DistributorAdapter.CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_distributor_item,parent,false);
         return new CardViewViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final CardViewViewHolder holder, int position) {
-        final Barang barang = listBarang.get(position);
-        holder.idBarang = barang.getId();
-        holder.tvNamaBarang.setText(barang.getNama_barang());
+        final Distributor distributor = lisDistributor.get(position);
+        holder.idDistributor = distributor.getId();
+        holder.tvNamaDistributor.setText(distributor.getNama_distributor());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(v.getContext(), BarangViewActivity.class);
-                intent.putExtra(BarangViewActivity.EXTRA_ID_BARANG_VIEW, holder.idBarang);
+                Intent intent = new Intent(v.getContext(), DistributorViewActivity.class);
+                intent.putExtra(DistributorViewActivity.EXTRA_ID_DISTRIBUTOR_VIEW, holder.idDistributor);
                 v.getContext().startActivity(intent);
             }
         });
@@ -50,19 +52,19 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.CardViewVi
 
     @Override
     public int getItemCount() {
-        return listBarang.size();
+        return lisDistributor.size();
     }
 
     public class CardViewViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaBarang;
-        int idBarang;
+        TextView tvNamaDistributor;
+        int idDistributor;
         public CardViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvNamaBarang = itemView.findViewById(R.id.txt_nama_barang);
-            idBarang = 0;
+            tvNamaDistributor = itemView.findViewById(R.id.txt_nama_distributor);
+            idDistributor = 0;
         }
     }
     public interface OnItemClickCallback {
-        void onItemClicked(Barang data);
+        void onItemClicked(Distributor data);
     }
 }

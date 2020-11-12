@@ -2,6 +2,7 @@ package com.example.pointofsale.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,7 +49,9 @@ public class DistributorActivity extends AppCompatActivity implements View.OnCli
         }
         if(isEmpty == false){
             distributorHelper.saveDistributor(new Distributor(namaDistributorText,alamatText,noTelpText));
-            onBackPressed();
+            Intent intent = new Intent(this,HomeDistributorActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

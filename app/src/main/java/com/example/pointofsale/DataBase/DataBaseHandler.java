@@ -109,6 +109,7 @@ public class DataBaseHandler extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEREK);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARANG);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTRIBUTOR);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTION);
         onCreate(db);
 //        String INSERT_TABLE_USER = "INSERT INTO " + TABLE_USER + "("
 //                +KEY_USERNAME + ","

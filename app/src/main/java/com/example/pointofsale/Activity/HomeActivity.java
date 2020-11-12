@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()){
             case R.id.distributor_activity:
-                intent = new Intent(this,DistributorActivity.class);
+                intent = new Intent(this,HomeDistributorActivity.class);
                 startActivity(intent);
                 break;
             case R.id.barang_activity:
@@ -57,11 +57,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.merek_activity:
-                intent = new Intent(this,MerkActivity.class);
+                intent = new Intent(this,HomeMerekActivity.class);
                 startActivity(intent);
                 break;
             case R.id.transaction_activity:
-                intent = new Intent(this,TransactionActivity.class);
+                intent = new Intent(this,HomeTransactionActivity.class);
                 startActivity(intent);
                 break;
             case R.id.user_activity:
