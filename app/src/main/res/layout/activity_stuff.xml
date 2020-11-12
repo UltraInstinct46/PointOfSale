@@ -14,9 +14,11 @@
         android:layout_height="wrap_content"
         android:hint="Nama Barang"/>
     <Spinner
+        android:id="@+id/spn_merek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Spinner
+        android:id="@+id/spn_distributor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -24,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tanggal Masuk"
-        android:inputType="date"/>
+        android:inputType="datetime"/>
     <EditText
         android:id="@+id/harga_barang_edt"
         android:layout_width="match_parent"

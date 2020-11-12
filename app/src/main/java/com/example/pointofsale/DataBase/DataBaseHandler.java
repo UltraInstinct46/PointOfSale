@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.pointofsale.Data.Barang;
 import com.example.pointofsale.Data.Distributor;
 import com.example.pointofsale.Data.Merek;
+import com.example.pointofsale.Data.Transaction;
 import com.example.pointofsale.Data.User;
 
 import java.util.ArrayList;
@@ -31,6 +33,26 @@ public class DataBaseHandler extends SQLiteOpenHelper{
     private static final String KEY_NAMA_DISTRIBUTOR = "key_nama_distributor";
     private static final String KEY_ALAMAT ="key_alamat";
     private static final String KEY_NO_TELP ="key_no_telp";
+
+
+    //TABLE BARANG
+    private static final String TABLE_BARANG = "t_barang";
+    private static final String KEY_NAMA_BARANG = "key_nama_barang";
+    private static final String KEY_ID_MEREK = "key_id_merek";
+    private static final String KEY_ID_DISTRIBUTOR = "key_id_distributor";
+    private static final String KEY_TANGGAL_MASUK = "key_tanggal_masuk";
+    private static final String KEY_HARGA_BARANG = "key_harga_barang";
+    private static final String KEY_STOCK_BARANG = "key_stock_barang";
+    private static final String KEY_KETERANGAN = "key_keterangan";
+
+
+    //TABLE TRANSACTION
+    private static final String TABLE_TRANSACTION = "t_transaction";
+    private static final String KEY_ID_BARANG = "key_id_barang";
+    private static final String KEY_ID_USER = "key_id_user";
+    private static final String KEY_JUMLAH_BELI = "key_jumlah_beli";
+    private static final String KEY_TOTAL_HARGA = "key_total_harga";
+    private static final String KEY_TANGGAL_BELI = "key_tanggal_beli";
     public DataBaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -54,14 +76,39 @@ public class DataBaseHandler extends SQLiteOpenHelper{
                 + KEY_NAMA_DISTRIBUTOR + " TEXT NOT NULL UNIQUE,"
                 + KEY_ALAMAT + " TEXT,"
                 + KEY_NO_TELP + " TEXT"+")";
+
+
+        //TABLE BARANG
+        String CREATE_TABLE_BARANG = "CREATE TABLE " + TABLE_BARANG + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NAMA_BARANG + " TEXT NOT NULL UNIQUE,"
+                + KEY_ID_MEREK + " INTEGER,"
+                + KEY_ID_DISTRIBUTOR + " INTEGER,"
+                + KEY_TANGGAL_MASUK + " DATE,"
+                + KEY_HARGA_BARANG + " INTEGER,"
+                + KEY_STOCK_BARANG + " INTEGER,"
+                + KEY_KETERANGAN + " TEXT" + ")";
+
+        //TABLE TRANSACTION
+        String CREATE_TABLE_TRANSACTION = "CREATE TABLE "+ TABLE_TRANSACTION + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID_BARANG + " INTEGER,"
+                + KEY_ID_USER + " INTEGER,"
+                + KEY_JUMLAH_BELI + " INTEGER,"
+                + KEY_TOTAL_HARGA + " INTEGER,"
+                + KEY_TANGGAL_BELI + " DATE" + ")";
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_MEREK);
         db.execSQL(CREATE_TABLE_DISTRIBUTOR);
+        db.execSQL(CREATE_TABLE_BARANG);
+        db.execSQL(CREATE_TABLE_TRANSACTION);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEREK);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARANG);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTRIBUTOR);
         onCreate(db);
 //        String INSERT_TABLE_USER = "INSERT INTO " + TABLE_USER + "("
 //                +KEY_USERNAME + ","
@@ -230,8 +277,8 @@ public class DataBaseHandler extends SQLiteOpenHelper{
                 Distributor distributor = new Distributor();
                 distributor.setId(Integer.valueOf(cursor.getString(0)));
                 distributor.setNama_distributor(cursor.getString(1));
-                distributor.setNama_distributor(cursor.getString(2));
-                distributor.setNama_distributor(cursor.getString(3));
+                distributor.setAlamat(cursor.getString(2));
+                distributor.setNo_telp(cursor.getString(3));
                 listDistributor.add(distributor);
             }while(cursor.moveToNext());
         }
@@ -249,6 +296,151 @@ public class DataBaseHandler extends SQLiteOpenHelper{
     public void deleteDistributor(Distributor distributor){
         SQLiteDatabase db=this.getWritableDatabase();
         db.delete(TABLE_DISTRIBUTOR, KEY_ID+"=?", new String[]{String.valueOf(distributor.getId())});
+        db.close();
+    }
+
+
+
+
+
+
+    //TABLE BARANG
+    public void saveBarang(Barang barang){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAMA_BARANG, barang.getNama_barang());
+        values.put(KEY_ID_MEREK, barang.getKd_merek());
+        values.put(KEY_ID_DISTRIBUTOR, barang.getKd_distributor());
+        values.put(KEY_TANGGAL_MASUK, barang.getTanggal_masuk());
+        values.put(KEY_HARGA_BARANG, barang.getHarga_barang());
+        values.put(KEY_STOCK_BARANG, barang.getStok_barang());
+        values.put(KEY_KETERANGAN, barang.getKeterangan());
+        db.insert(TABLE_BARANG, null, values);
+        db.close();
+    }
+    public Barang findOneBarang(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_BARANG,new String[]{KEY_ID,KEY_NAMA_BARANG,KEY_ID_MEREK,KEY_ID_DISTRIBUTOR,KEY_TANGGAL_MASUK,KEY_HARGA_BARANG,KEY_STOCK_BARANG,KEY_KETERANGAN},
+                KEY_ID+"=?", new String[]{String.valueOf(id)},null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        return new Barang(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getString(4),
+                cursor.getInt(5),
+                cursor.getInt(6),
+                cursor.getString(7));
+    }
+
+    public List<Barang> findAllBarang(){
+        List<Barang> listBarang = new ArrayList<>();
+        String query = "SELECT * FROM "+ TABLE_BARANG;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Barang barang = new Barang();
+                barang.setId(Integer.valueOf(cursor.getString(0)));
+                barang.setNama_barang(cursor.getString(1));
+                barang.setKd_merek(Integer.valueOf(cursor.getString(2)));
+                barang.setKd_distributor(Integer.valueOf(cursor.getString(3)));
+                barang.setTanggal_masuk(cursor.getString(4));
+                barang.setHarga_barang(Integer.valueOf(cursor.getString(5)));
+                barang.setStok_barang(Integer.valueOf(cursor.getString(6)));
+                barang.setKeterangan(cursor.getString(7));
+                listBarang.add(barang);
+            }while(cursor.moveToNext());
+        }
+        return listBarang;
+    }
+    public void updateBarang(Barang barang){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAMA_BARANG, barang.getNama_barang());
+        values.put(KEY_ID_MEREK, barang.getKd_merek());
+        values.put(KEY_ID_DISTRIBUTOR, barang.getKd_distributor());
+        values.put(KEY_TANGGAL_MASUK, barang.getTanggal_masuk());
+        values.put(KEY_HARGA_BARANG, barang.getHarga_barang());
+        values.put(KEY_STOCK_BARANG, barang.getStok_barang());
+        values.put(KEY_KETERANGAN, barang.getKeterangan());
+        db.update(TABLE_BARANG,values,KEY_ID+"=?", new String[]{String.valueOf(barang.getId())});
+        db.close();
+    }
+    public void deleteBarang(Barang barang){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete(TABLE_BARANG, KEY_ID+"=?", new String[]{String.valueOf(barang.getId())});
+        db.close();
+    }
+
+
+
+    //TABLE TRANSACTION
+    public void saveTransaction(Transaction transaction){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_BARANG, transaction.getKd_barang());
+        values.put(KEY_ID_USER, transaction.getKd_user());
+        values.put(KEY_JUMLAH_BELI, transaction.getJumlah_beli());
+        values.put(KEY_TOTAL_HARGA, transaction.getTotal_harga());
+        values.put(KEY_TANGGAL_BELI, transaction.getDate());
+        db.insert(TABLE_TRANSACTION, null, values);
+        db.close();
+    }
+    public Transaction findOneTransaction(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TRANSACTION,new String[]{KEY_ID,KEY_ID_BARANG,KEY_ID_USER,KEY_JUMLAH_BELI,KEY_TOTAL_HARGA,KEY_TANGGAL_BELI},
+                KEY_ID+"=?", new String[]{String.valueOf(id)},null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        return new Transaction(Integer.parseInt(cursor.getString(0)),
+                cursor.getInt(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getInt(4),
+                cursor.getString(5));
+    }
+
+    public List<Transaction> findAllTransaction(){
+        List<Transaction> listTransaction = new ArrayList<>();
+        String query = "SELECT * FROM "+ TABLE_TRANSACTION;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Transaction transaction = new Transaction();
+                transaction.setId(Integer.valueOf(cursor.getString(0)));
+                transaction.setKd_barang(Integer.valueOf(cursor.getString(1)));
+                transaction.setKd_user(Integer.valueOf(cursor.getString(2)));
+                transaction.setJumlah_beli(Integer.valueOf(cursor.getString(3)));
+                transaction.setTotal_harga(Integer.valueOf(cursor.getString(4)));
+                transaction.setDate(cursor.getString(5));
+                listTransaction.add(transaction);
+            }while(cursor.moveToNext());
+        }
+        return listTransaction;
+    }
+    public void updateTransaction(Transaction transaction){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_BARANG, transaction.getKd_barang());
+        values.put(KEY_ID_USER, transaction.getKd_user());
+        values.put(KEY_JUMLAH_BELI, transaction.getJumlah_beli());
+        values.put(KEY_TOTAL_HARGA, transaction.getTotal_harga());
+        values.put(KEY_TANGGAL_BELI, transaction.getDate());
+        db.update(TABLE_TRANSACTION,values,KEY_ID+"=?", new String[]{String.valueOf(transaction.getId())});
+        db.close();
+    }
+    public void deleteTransaction(Transaction transaction){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete(TABLE_TRANSACTION, KEY_ID+"=?", new String[]{String.valueOf(transaction.getId())});
         db.close();
     }
 }
