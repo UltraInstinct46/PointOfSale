@@ -15,18 +15,27 @@
         android:id="@+id/spn_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Qty">
     <EditText
         android:id="@+id/qty_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:hint="Qty"/>
+        android:text="0" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Total Cost">
     <EditText
         android:id="@+id/totalcost_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0"
         android:hint="Total Cost"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/add_transaction"
         android:layout_width="match_parent"

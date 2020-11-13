@@ -7,19 +7,26 @@
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".Activity.UserActivity">
-
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username">
     <EditText
         android:id="@+id/username_user_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
         />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password">
     <EditText
         android:id="@+id/password_user_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
         />
+    </com.google.android.material.textfield.TextInputLayout>
     <Spinner
         android:id="@+id/listLevel"
         android:entries="@array/level"

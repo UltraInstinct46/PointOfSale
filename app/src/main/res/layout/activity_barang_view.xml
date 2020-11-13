@@ -7,11 +7,15 @@
     android:padding="30dp"
     android:layout_height="match_parent"
     tools:context=".Activity.BarangViewActivity">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Barang">
     <EditText
         android:id="@+id/nama_barang_view_edt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nama Barang"/>
+        android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <Spinner
         android:id="@+id/spn_merek_view"
         android:layout_width="match_parent"
@@ -20,27 +24,43 @@
         android:id="@+id/spn_distributor_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tanggal Masuk">
     <EditText
         android:id="@+id/tanggal_masuk_view_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tanggal Masuk"
         android:inputType="datetime"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Harga Barang">
     <EditText
         android:id="@+id/harga_barang_view_edt"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Harga Barang"/>
+        android:hint="Stock Barang">
     <EditText
         android:id="@+id/stock_barang_view_edt"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Stock Barang"/>
+        android:hint="Keterangan">
     <EditText
         android:id="@+id/keterangan_view_edt"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="Keterangan"/>
+        android:layout_height="100dp" />
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +77,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+
             android:text="Delete"/>
     </LinearLayout>
 

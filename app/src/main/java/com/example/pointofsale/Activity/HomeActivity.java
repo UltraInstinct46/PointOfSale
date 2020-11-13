@@ -14,8 +14,8 @@ import android.widget.Button;
 import com.example.pointofsale.R;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button distributorBtn,barangBtn,merekBtn,transactionBtn,userBtn,laporanBtn;
-    private View distributorView,barangView,merekView,transactionView,userView,laporanView;
+    private Button distributorBtn,barangBtn,merekBtn,transactionBtn,userBtn, laporanBarangBtn, laporanTransactionBtn;
+    private View distributorView,barangView,merekView,transactionView,userView, laporanBarangView, laporanTransactionView;
     public static final String EXTRA_LEVEL = "extra_level";
 
     @Nullable
@@ -34,14 +34,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         merekBtn = findViewById(R.id.merek_activity);
         transactionBtn = findViewById(R.id.transaction_activity);
         userBtn = findViewById(R.id.user_activity);
-        laporanBtn = findViewById(R.id.laporan_activity);
+        laporanBarangBtn = findViewById(R.id.laporan_barang);
+        laporanTransactionBtn = findViewById(R.id.laporan_transaction);
 
         distributorBtn.setOnClickListener(this);
         barangBtn.setOnClickListener(this);
         merekBtn.setOnClickListener(this);
         transactionBtn.setOnClickListener(this);
         userBtn.setOnClickListener(this);
-        laporanBtn.setOnClickListener(this);
+        laporanBarangBtn.setOnClickListener(this);
+        laporanTransactionBtn.setOnClickListener(this);
     }
 
     @Override
@@ -68,8 +70,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this,UserActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.laporan_activity:
-                intent = new Intent(this,LaporanActivity.class);
+            case R.id.laporan_barang:
+                intent = new Intent(this, LaporanBarangActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.laporan_transaction:
+                intent = new Intent(this, LaporanTransactionActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -77,23 +83,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     void levelChecker(){
         String levelExtra = getIntent().getStringExtra(EXTRA_LEVEL);
         transactionView = findViewById(R.id.transaction_activity);
-        laporanView = findViewById(R.id.laporan_activity);
+        laporanBarangView = findViewById(R.id.laporan_barang);
         barangView = findViewById(R.id.barang_activity);
         distributorView = findViewById(R.id.distributor_activity);
         merekView = findViewById(R.id.merek_activity);
-        laporanView = findViewById(R.id.laporan_activity);
+        laporanBarangView = findViewById(R.id.laporan_barang);
         userView = findViewById(R.id.user_activity);
+        laporanTransactionView = findViewById(R.id.laporan_transaction);
         switch (levelExtra){
             case "Admin":
                 transactionView.setVisibility(View.GONE);
-                laporanView.setVisibility(View.GONE);
+                laporanBarangView.setVisibility(View.GONE);
+                laporanTransactionView.setVisibility(View.GONE);
                 break;
             case "Kasir":
                 barangView.setVisibility(View.GONE);
                 distributorView.setVisibility(View.GONE);
                 merekView.setVisibility(View.GONE);
-                laporanView.setVisibility(View.GONE);
+                laporanBarangView.setVisibility(View.GONE);
                 userView.setVisibility(View.GONE);
+                laporanTransactionView.setVisibility(View.GONE);
                 break;
             case "Manager":
                 barangView.setVisibility(View.GONE);
